@@ -57,7 +57,7 @@ class Principal
     }
     
     
-    //member functions
+    //member functions - Does not account for Duplicate instructors, students or courses.
     public void hireInstructor(Instructor i)
     {
         if (activeInstructors.size() <= 9)
