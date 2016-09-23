@@ -6,6 +6,7 @@ class Student extends Patron
 {
     private Boolean isEnrolled;
     private List<Record> studentRecord = new ArrayList<Record>();
+    private List<Course> registeredCourses = new ArrayList<Course>();
     //Default constructor
     public Student(Boolean enrolledstate)
     {
@@ -20,6 +21,10 @@ class Student extends Patron
     {
         return studentRecord;
     }
+    public List<Course> getregisteredCourses()
+    {
+        return registeredCourses;
+    }
     //Setter method
     public void setenroll(Boolean state)
     {
@@ -32,6 +37,20 @@ class Student extends Patron
     public void removeRecord(Record r)
     {
         studentRecord.remove(r);
+    }
+    public void registerforclass(Course c)
+    {
+        /*if (c.getSemestersOffered.size() > 0)
+        {
+            for (int i=0; i < c.getSemestersOffered.size(); i++)
+            {
+                if (c.getSemestersOffered.get(i) == currentSemester)
+                {
+                    registeredCourses.add(c);
+                }
+            }
+        }*/
+        registeredCourses.add(c);
     }
     
     public int registerForClass()
