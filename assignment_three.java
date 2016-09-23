@@ -119,7 +119,6 @@ class assignment_three
              //Keeps track of each courses semesters offered data.
                 List<String> semesters = new ArrayList<String>();
                 afterSplit = line.split(",");
-                System.out.println(afterSplit[1]);
                 Course compsci = new Course();
                 compsci.setcid(Integer.parseInt(afterSplit[0]));
                 compsci.setTitle(afterSplit[1]);
@@ -156,7 +155,6 @@ class assignment_three
                 //Keeps track of each courses semesters offered data.
          //       List<String> semesters = new ArrayList<String>();
                 afterSplit = line.split(",");
-                System.out.println(afterSplit[1]);
                 Record chris_fall = new Record();
                 chris_fall.setStuId(Integer.parseInt(afterSplit[0]));
                 chris_fall.setCourId(Integer.parseInt(afterSplit[1]));
@@ -379,41 +377,21 @@ class assignment_three
         List<Instructor> allInstructors = parseInstructorData("instructors.csv");
         List<Course> allCourses = parseCoursesData("courses.csv");
         assignRecords(allStudents, schoolRecords);
+        
 		//#1
-        Principal pete = new Principal();
-        System.out.println(pete.getActiveInstructors());
-        System.out.println(pete.getActiveStudents());
-        System.out.println(pete.getCurrentCourses());
-        
-        pete.setActiveInstructors(allInstructors);
-        pete.setActiveStudents(allStudents);
-        pete.setCurrentCourses(allCourses);
-        
-        
-        System.out.println(pete.getActiveInstructors());
-        System.out.println(pete.getActiveStudents().size());
-        System.out.println(pete.getCurrentCourses());
-        
-        pete.enrollStudent(allStudents.get(0));
-        System.out.println(pete.getActiveStudents().size());
-        
-       // allStudents.get(1).addRecord(schoolRecords.get(0));
-       // List<Record> r = allStudents.get(1).getStudentRecord();
-       // System.out.println(r.get(0).getFinalGrade());
-
-		//System.out.println(readRecordsData("records.csv", 1).size());
+        System.out.println(schoolRecords.size());
 		//#2  
-        /*	System.out.println(readStudentData("students.csv").size());
-		//#3
+        System.out.println(allStudents.size());
+		//#3**
 		System.out.println(findLazyStudents()); 
 		//#4
-		System.out.println(readInstructorsData("instructors.csv").size()); 
-		//#5
+		System.out.println(allInstructors.size());
+		//#5**
 		System.out.println(findLazyInstructors());
 		//#6
-		System.out.println(readCoursesData("courses.csv", "courses").size());
-		//#7
-		List<String> recorded_courseID = readRecordsData("records.csv", 2);
+		System.out.println(allCourses.size());
+		//#7**
+        /*List<String> recorded_courseID = readRecordsData("records.csv", 2);
 		List<String> allcourses = readCoursesData("courses.csv", "courses");
 		List<Boolean> takenCourses = new ArrayList<Boolean>(allcourses.size());
 		int nonTakenCourses = 0;
@@ -433,13 +411,38 @@ class assignment_three
 			if (!takenCourses.get(c)) { nonTakenCourses++; }
 		}
 
-		System.out.println(nonTakenCourses);
-		//#8
-		System.out.println(readCoursesData("courses.csv", "fall").size());
-		//#9
-		System.out.println(readCoursesData("courses.csv", "spring").size());
-		//#10
-		System.out.println(readCoursesData("courses.csv", "summer").size());*/
+		System.out.println(nonTakenCourses);*/
+		//#8, #9, #10
+        int fall = 0;
+        int spring = 0;
+        int summer = 0;
+		if (allCourses.size() > 0 && allCourses != null)
+        {
+            for (int i=0; i < allCourses.size(); i++)
+            {
+                if (allCourses.get(i).getSemestersOffered().size() > 0)
+                {
+                    for (int j=0; j < allCourses.get(i).getSemestersOffered().size(); j++)
+                    {
+                        if (allCourses.get(i).getSemestersOffered().get(j).equals("Fall"))
+                        {
+                            fall += 1;
+                        }
+                        if (allCourses.get(i).getSemestersOffered().get(j).equals("Spring"))
+                        {
+                            spring += 1;
+                        }
+                        if (allCourses.get(i).getSemestersOffered().get(j).equals("Summer"))
+                        {
+                            summer += 1;
+                        }
+                    }
+                }
+            }
+            System.out.println(fall);
+            System.out.println(spring);
+            System.out.println(summer);
+        }
         
         //Create Patron and Student.
       //  Patron mypat = new Patron();
