@@ -343,8 +343,6 @@ class assignment_three
     //Function to assign records to the particular students.
     public static void assignRecords(List<Student> ls, List<Record> lr)
     {
-        System.out.println(ls.get(0).getuuid());
-        System.out.println(lr.get(0).getStuId());
         for (int i=0; i < lr.size(); i++)
         {
             for (int j=0; j < ls.size(); j++)
@@ -382,57 +380,74 @@ class assignment_three
         System.out.println(schoolRecords.size());
 		//#2  
         System.out.println(allStudents.size());
-		//#3**
-		System.out.println(findLazyStudents()); 
+		//#3
+        List<Student> tmpStudList = allStudents;
+        for (int i=0; i < schoolRecords.size(); i++)
+        {
+            for (int j=0; j < allStudents.size(); j++)
+            {
+                if (allStudents.get(j) != null && allStudents.get(j).getuuid() == schoolRecords.get(i).getStuId())
+                {
+                    tmpStudList.remove(allStudents.get(j));
+                }
+            }
+        }
+        System.out.println(tmpStudList.size());
 		//#4
 		System.out.println(allInstructors.size());
-		//#5**
-		System.out.println(findLazyInstructors());
+		//#5
+        List<Instructor> tmpInstList = allInstructors;
+        for (int i=0; i < schoolRecords.size(); i++)
+        {
+            for (int j=0; j < allInstructors.size(); j++)
+            {
+                if (allInstructors.get(j) != null && allInstructors.get(j).getuuid() == schoolRecords.get(i).getInstId())
+                {
+                    tmpInstList.remove(allInstructors.get(j));
+                }
+            }
+        }
+        System.out.println(tmpInstList.size());
 		//#6
 		System.out.println(allCourses.size());
 		//#7**
-        /*List<String> recorded_courseID = readRecordsData("records.csv", 2);
-		List<String> allcourses = readCoursesData("courses.csv", "courses");
-		List<Boolean> takenCourses = new ArrayList<Boolean>(allcourses.size());
-		int nonTakenCourses = 0;
-		for (int z=0; z < allcourses.size(); z++) { takenCourses.add(false); }
-		for (int i=0; i < allcourses.size(); i++) 
-		{
-			for (int j=0; j < recorded_courseID.size(); j++) 
-			{
-				if (Integer.parseInt(allcourses.get(i)) == Integer.parseInt(recorded_courseID.get(j))) 
-				{ 
-					takenCourses.set(i, true); 
-				}
-			}
-		}
-		for (int c=0; c<takenCourses.size(); c++) 
-		{
-			if (!takenCourses.get(c)) { nonTakenCourses++; }
-		}
-
-		System.out.println(nonTakenCourses);*/
-		//#8, #9, #10
+        List<Course> tmpCourseList = new ArrayList<Course>();
+        tmpCourseList = allCourses;
+        for (int i=0; i < schoolRecords.size(); i++)
+        {
+            for (int j=0; j < allCourses.size(); j++)
+            {
+                if (allCourses.get(j) != null && allCourses.get(j).getcid() == schoolRecords.get(i).getCourId())
+                {
+                    tmpCourseList.remove(allCourses.get(j));
+                }
+            }
+        }
+        
+        System.out.println(tmpCourseList.size());
+		//#8, #9, #10 - #7 altered the original course list, so need to re-create it.
+        List<Course> newCourses = parseCoursesData("courses.csv");
         int fall = 0;
         int spring = 0;
         int summer = 0;
-		if (allCourses.size() > 0 && allCourses != null)
+        
+		if (newCourses.size() > 0 && newCourses != null)
         {
-            for (int i=0; i < allCourses.size(); i++)
+            for (int i=0; i < newCourses.size(); i++)
             {
-                if (allCourses.get(i).getSemestersOffered().size() > 0)
+                if (newCourses.get(i).getSemestersOffered().size() > 0)
                 {
-                    for (int j=0; j < allCourses.get(i).getSemestersOffered().size(); j++)
+                    for (int j=0; j < newCourses.get(i).getSemestersOffered().size(); j++)
                     {
-                        if (allCourses.get(i).getSemestersOffered().get(j).equals("Fall"))
+                        if (newCourses.get(i).getSemestersOffered().get(j).equals("Fall"))
                         {
                             fall += 1;
                         }
-                        if (allCourses.get(i).getSemestersOffered().get(j).equals("Spring"))
+                        if (newCourses.get(i).getSemestersOffered().get(j).equals("Spring"))
                         {
                             spring += 1;
                         }
-                        if (allCourses.get(i).getSemestersOffered().get(j).equals("Summer"))
+                        if (newCourses.get(i).getSemestersOffered().get(j).equals("Summer"))
                         {
                             summer += 1;
                         }
@@ -443,32 +458,5 @@ class assignment_three
             System.out.println(spring);
             System.out.println(summer);
         }
-        
-        //Create Patron and Student.
-      //  Patron mypat = new Patron();
-      //  mypat.UUID = 4;
-      //  System.out.println(mypat);
-        
-     //   Student mystud1 = new Student(true);
-     //   Student mystud2 = new Student(false);
-        //mystud1.UUID = 5;
-        //mystud2.UUID = 6;
-       // mystud2.isEnrolled = true;
-     //   System.out.println(mystud1.getuuid());
-     //   System.out.println(mystud2.getenroll());
-        
-    /*    List<Student> allStudents = new ArrayList<Student>();
-        allStudents.add(mystud1);
-        System.out.println(allStudents.get(0).registerForClass());
-        allStudents.add(mystud2);
-        System.out.println(allStudents.get(1).UUID);
-        courseCatalog gt = new courseCatalog();
-        Course biology = new Course();
-        Course math = new Course();
-        biology.Title = "biology for cs majors!";
-        math.Title = "math cs6290";
-        gt.activeCourses.add(biology);
-        gt.activeCourses.add(math);
-        System.out.println(gt.activeCourses.get(1).Title);*/
 	}
 }
